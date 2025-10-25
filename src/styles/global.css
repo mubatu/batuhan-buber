@@ -1,1 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Cascadia+Code:wght@200..700&display=swap');
 @import "tailwindcss";
+
+@layer base {
+  * {
+    font-family: 'Cascadia Code', monospace;
+  }
+}
