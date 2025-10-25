@@ -1,6 +1,8 @@
 import { Sun, Moon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import './Header.css';
+import logoBlack from '../assets/logo-black.png?url';
+import logoWhite from '../assets/logo-white.png?url';
 
 export default function Header() {
   const [isDark, setIsDark] = useState(false);
@@ -43,10 +45,9 @@ export default function Header() {
 
   return (
     <header className="header">
-      <nav className="container mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="flex-1"></div>
-        
-        <ul className="flex items-center justify-center md:gap-12 sm:gap-10 gap-8">
+      <nav className="nav-container">
+        {/* Left navigation items */}
+        <ul className="nav-section nav-left">
           <li>
             <a href="#about" className="nav-link">
               About
@@ -57,6 +58,19 @@ export default function Header() {
               Resume
             </a>
           </li>
+        </ul>
+
+        {/* Center logo */}
+        <div className="logo-container">
+          <img 
+            src={isDark ? logoWhite : logoBlack} 
+            alt="Logo" 
+            className="logo" 
+          />
+        </div>
+
+        {/* Right navigation items */}
+        <ul className="nav-section nav-right">
           <li>
             <a href="#projects" className="nav-link">
               Projects
@@ -68,17 +82,16 @@ export default function Header() {
             </a>
           </li>
         </ul>
-
-        <div className="flex-1 flex justify-end">
-          <button 
-            onClick={toggleTheme}
-            className="theme-toggle"
-            aria-label="Toggle theme"
-          >
-            {isDark ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
-        </div>
       </nav>
+
+      {/* Theme toggle in top-right corner */}
+      <button 
+        onClick={toggleTheme}
+        className="theme-toggle"
+        aria-label="Toggle theme"
+      >
+        {isDark ? <Sun size={20} /> : <Moon size={20} />}
+      </button>
     </header>
   );
 }
