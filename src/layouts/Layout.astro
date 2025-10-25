@@ -1,5 +1,13 @@
 ---
 import Header from '../components/Header.jsx';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { title = 'Batuhan Buber', description = 'Computer Engineer - Designer - Developer' } = Astro.props;
+const pageTitle = title === 'Batuhan Buber' ? title : `${title} | Batuhan Buber`;
 ---
 
 <!doctype html>
@@ -8,8 +16,9 @@ import Header from '../components/Header.jsx';
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="description" content={description} />
 		<meta name="generator" content={Astro.generator} />
-		<title>Batuhan Buber</title>
+		<title>{pageTitle}</title>
 	</head>
 	<body>
 		<Header client:load />

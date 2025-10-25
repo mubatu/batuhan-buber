@@ -49,12 +49,12 @@ export default function Header() {
         {/* Left navigation items */}
         <ul className="nav-section nav-left">
           <li>
-            <a href="#about" className="nav-link">
+            <a href="/" className="nav-link">
               About
             </a>
           </li>
           <li>
-            <a href="#resume" className="nav-link">
+            <a href="/resume" className="nav-link">
               Resume
             </a>
           </li>
@@ -72,12 +72,12 @@ export default function Header() {
         {/* Right navigation items */}
         <ul className="nav-section nav-right">
           <li>
-            <a href="#projects" className="nav-link">
+            <a href="/projects" className="nav-link">
               Projects
             </a>
           </li>
           <li>
-            <a href="#designs" className="nav-link">
+            <a href="/designs" className="nav-link">
               Designs
             </a>
           </li>
