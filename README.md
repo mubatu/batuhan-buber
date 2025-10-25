@@ -1,2 +1,2 @@
-# batuhan-buber
-My first repository on GitHub for the hackathon
+# batuhanbuber.com
+Repository for my personal web site
