@@ -1,9 +1,10 @@
 ---
+import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.jsx';
 import '../styles/global.css';
 ---
-<html lang="en">
-  <body class="bg-gray-50 text-gray-900">
+<Layout>
+  <main class="bg-white text-gray-900"> <!-- bg-white (page background), text-gray-900 (text color) -->
     <Hero />
-  </body>
-</html>
+  </main>
+</Layout>
