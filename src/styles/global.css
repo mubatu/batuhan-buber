@@ -1,1 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Cascadia+Code:wght@200..700&display=swap');
 @import "tailwindcss";
+
+@layer base {
+  /* CSS Variables for theme management */
+
+  /* Light mode variables */
+  :root {
+    --color-bg-primary: #ffffff;
+    --color-bg-secondary: #f9fafb;
+    --color-text-primary: #000000;
+    --color-text-secondary: #717171;
+    --color-accent: #111827;
+    
+    /* Header */
+    --color-header-text: #717171;
+    --color-header-text-hover: #111827;
+    --color-header-bg: rgba(255, 255, 255, 0.8);
+  }
+
+  /* Dark mode variables */
+  html.dark {
+    --color-bg-primary: #000000;
+    --color-bg-secondary: #353535;
+    --color-text-primary: #f8fafc;
+    --color-text-secondary: #b7b7b7;
+    --color-accent: #e2e8f0;
+    
+    /* Header */
+    --color-header-text: #b7b7b7;
+    --color-header-text-hover: #f8fafc;
+    --color-header-bg: rgba(0, 0, 0, 0.8);
+  }
+
+  /* Both light and dark mode are not set, use system preference as FALLBACK */
+  @media (prefers-color-scheme: dark) {
+    :root:not(.dark):not(.light) {
+      --color-bg-primary: #0f172a;
+      --color-bg-secondary: #1e293b;
+      --color-text-primary: #f8fafc;
+      --color-text-secondary: #94a3b8;
+      --color-accent: #e2e8f0;
+      
+      --color-header-text: #94a3b8;
+      --color-header-text-hover: #f8fafc;
+      --color-header-bg: rgba(15, 23, 42, 0.8);
+    }
+  }
+
+  * {
+    font-family: 'Cascadia Code', monospace;
+  }
+
+  body {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Coming soon page styles */
+  .coming-soon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 80px);
+    text-align: center;
+  }
+
+  .coming-soon h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--color-text-primary);
+  }
+
+  /* Social media icon hover effect */
+  .social-icon {
+    color: var(--color-text-primary);
+    transition: color 0.3s ease;
+  }
+
+  .social-icon:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+  }
+}
