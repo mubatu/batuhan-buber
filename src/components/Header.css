@@ -65,10 +65,25 @@
   transition: color 0.2s ease;
   text-decoration: none;
   white-space: nowrap;
+  position: relative;
 }
 
 .nav-link:hover {
   color: var(--color-header-text-hover);
+}
+
+.nav-link.active {
+  color: var(--color-header-text-hover);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -0.25rem;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-header-text-hover);
 }
 
 .theme-toggle {

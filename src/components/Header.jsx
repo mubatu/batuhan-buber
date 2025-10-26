@@ -4,7 +4,7 @@ import './Header.css';
 import logoBlack from '../assets/logo-black.png?url';
 import logoWhite from '../assets/logo-white.png?url';
 
-export default function Header() {
+export default function Header({ currentPath = '/' }) {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
@@ -25,6 +25,11 @@ export default function Header() {
       setIsDark(false);
     }
   }, []);
+
+  // Helper function to check if link is active
+  const isActive = (path) => {
+    return currentPath === path;
+  };
 
   const toggleTheme = () => {
     const html = document.documentElement;
@@ -49,12 +54,12 @@ export default function Header() {
         {/* Left navigation items */}
         <ul className="nav-section nav-left">
           <li>
-            <a href="/" className="nav-link">
+            <a href="/" className={`nav-link ${isActive('/') ? 'active' : ''}`}>
               About
             </a>
           </li>
           <li>
-            <a href="/resume" className="nav-link">
+            <a href="/resume" className={`nav-link ${isActive('/resume') ? 'active' : ''}`}>
               Resume
             </a>
           </li>
@@ -72,12 +77,12 @@ export default function Header() {
         {/* Right navigation items */}
         <ul className="nav-section nav-right">
           <li>
-            <a href="/projects" className="nav-link">
+            <a href="/projects" className={`nav-link ${isActive('/projects') ? 'active' : ''}`}>
               Projects
             </a>
           </li>
           <li>
-            <a href="/designs" className="nav-link">
+            <a href="/designs" className={`nav-link ${isActive('/designs') ? 'active' : ''}`}>
               Designs
             </a>
           </li>
