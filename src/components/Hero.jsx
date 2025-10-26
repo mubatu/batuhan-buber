@@ -1,3 +1,5 @@
+import meImage from '../assets/me.jpg';
+
 const socialLinks = [
   {
     name: "LinkedIn",
@@ -97,7 +99,7 @@ export default function Hero() {
         </div>
         <div className="shrink-0 mx-auto md:mx-0">
           <img 
-            src="/src/assets/me.jpg" 
+            src={meImage.src} 
             alt="Batuhan Buber" 
             className="rounded-full w-70 h-70 object-cover"
           />
