@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import meImage from '../assets/me.jpg';
 
 const socialLinks = [
@@ -72,9 +73,8 @@ export default function Hero() {
           </p>
           <div className="flex items-center gap-4 flex-wrap">
             {socialLinks.map((social, index) => (
-              <>
+              <Fragment key={social.name}>
                 <a 
-                  key={social.name}
                   href={social.url} 
                   target="_blank" 
                   rel="noopener noreferrer" 
@@ -91,9 +91,9 @@ export default function Hero() {
                   </svg>
                 </a>
                 {index < socialLinks.length - 1 && (
-                  <span key={`separator-${index}`} style={{ color: 'var(--color-text-secondary)' }}>-</span>
+                  <span style={{ color: 'var(--color-text-secondary)' }}>-</span>
                 )}
-              </>
+              </Fragment>
             ))}
           </div>
         </div>
