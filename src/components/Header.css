@@ -132,10 +132,23 @@
   }
 }
 
-/* Responsive design for to 480px screens */
+/* Responsive design for to 429px screens */
 @media (max-width: 429px) {
+  .nav-link {
+    font-size: 1.23rem;
+  }
+}
+
+/* Responsive design for to 405px screens */
+@media (max-width: 405px) {
+  .nav-link {
+    font-size: 1.15rem;
+  }
+}
+
+/* Responsive design for to 385px screens */
+@media (max-width: 385px) {
   .nav-link {
     font-size: 1.1rem;
   }
 }
-
