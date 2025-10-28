@@ -4,10 +4,14 @@ import './Header.css';
 import logoBlack from '../assets/logo-black.png?url';
 import logoWhite from '../assets/logo-white.png?url';
 
-export default function Header({ currentPath = '/' }) {
+export default function Header() {
   const [isDark, setIsDark] = useState(false);
+  const [currentPath, setCurrentPath] = useState('/');
 
   useEffect(() => {
+    // Set current path, removing trailing slash for consistency
+    setCurrentPath(window.location.pathname.replace(/\/$/, '') || '/');
+
     // Get stored theme or default to light
     const storedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;

@@ -8,7 +8,6 @@ interface Props {
 
 const { title = 'Batuhan Buber', description = 'Computer Engineer - Designer - Developer' } = Astro.props;
 const pageTitle = title === 'Batuhan Buber' ? title : `${title} | Batuhan Buber`;
-const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -22,7 +21,7 @@ const currentPath = Astro.url.pathname;
 		<title>{pageTitle}</title>
 	</head>
 	<body>
-		<Header client:load currentPath={currentPath} />
+		<Header client:load />
 		<slot />
 	</body>
 </html>
