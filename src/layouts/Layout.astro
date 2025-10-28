@@ -1,5 +1,7 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
 
 interface Props {
 	title?: string;
@@ -8,7 +10,6 @@ interface Props {
 
 const { title = 'Batuhan Buber', description = 'Computer Engineer - Designer - Developer' } = Astro.props;
 const pageTitle = title === 'Batuhan Buber' ? title : `${title} | Batuhan Buber`;
-const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -20,10 +21,34 @@ const currentPath = Astro.url.pathname;
 		<meta name="description" content={description} />
 		<meta name="generator" content={Astro.generator} />
 		<title>{pageTitle}</title>
+		<ClientRouter />
+		<script is:inline>
+			// Apply theme immediately to prevent flash
+			function applyTheme() {
+				const theme = localStorage.getItem('theme') || 
+					(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+				document.documentElement.classList.remove('light', 'dark');
+				document.documentElement.classList.add(theme);
+			}
+			
+			// Apply on initial load
+			applyTheme();
+			
+			// Ensure new document has correct theme BEFORE swap to avoid flashes
+			document.addEventListener('astro:before-swap', (ev) => {
+				const theme = localStorage.getItem('theme') || 
+					(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+				ev.newDocument.documentElement.classList.remove('light', 'dark');
+				ev.newDocument.documentElement.classList.add(theme);
+			});
+		</script>
 	</head>
 	<body>
-		<Header client:load currentPath={currentPath} />
-		<slot />
+		<Header client:only="react" transition:persist />
+		<main class="main-content" transition:name="content">
+			<slot />
+		</main>
+		<Footer client:only="react" transition:persist />
 	</body>
 </html>
 
@@ -33,5 +58,15 @@ const currentPath = Astro.url.pathname;
 		margin: 0;
 		width: 100%;
 		height: 100%;
+	}
+
+	.main-content {
+		padding-bottom: 4rem;
+		min-height: calc(100vh - 80px);
+	}
+
+	/* Avoid transitioning the root so theme changes don't flash */
+	html {
+		view-transition-name: none;
 	}
 </style>

@@ -1,29 +1,40 @@
-import { Sun, Moon } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { LuSunMedium, LuMoon } from 'react-icons/lu';
 import './Header.css';
 import logoBlack from '../assets/logo-black.png?url';
 import logoWhite from '../assets/logo-white.png?url';
 
-export default function Header({ currentPath = '/' }) {
+export default function Header() {
   const [isDark, setIsDark] = useState(false);
+  const [currentPath, setCurrentPath] = useState('/');
 
   useEffect(() => {
-    // Get stored theme or default to light
-    const storedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = storedTheme || (prefersDark ? 'dark' : 'light');
+    // Sync state with the theme that's already applied by the inline script
+    const syncTheme = () => {
+      const isDarkMode = document.documentElement.classList.contains('dark');
+      setIsDark(isDarkMode);
+    };
+
+    // Update current path
+    const updatePath = () => {
+      setCurrentPath(window.location.pathname.replace(/\/$/, '') || '/');
+    };
     
-    // Apply theme
-    const html = document.documentElement;
-    if (theme === 'dark') {
-      html.classList.add('dark');
-      html.classList.remove('light');
-      setIsDark(true);
-    } else {
-      html.classList.add('light');
-      html.classList.remove('dark');
-      setIsDark(false);
-    }
+    // Initialize on mount
+    syncTheme();
+    updatePath();
+
+    // Listen for Astro view transitions
+    const handlePageLoad = () => {
+      syncTheme();
+      updatePath();
+    };
+
+    document.addEventListener('astro:page-load', handlePageLoad);
+    
+    return () => {
+      document.removeEventListener('astro:page-load', handlePageLoad);
+    };
   }, []);
 
   // Helper function to check if link is active
@@ -95,7 +106,7 @@ export default function Header({ currentPath = '/' }) {
         className="theme-toggle"
         aria-label="Toggle theme"
       >
-        {isDark ? <Sun size={20} /> : <Moon size={20} />}
+        {isDark ? <LuSunMedium size={20} /> : <LuMoon size={20} />}
       </button>
     </header>
   );
