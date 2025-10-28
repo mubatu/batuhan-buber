@@ -70,7 +70,7 @@ export default function Hero() {
                       <IconComponent size={25} />
                     </a>
                     {index < 3 && (
-                      <span style={{ color: 'var(--color-text-secondary)' }}>-</span>
+                      <span style={{ color: 'var(--color-text-secondary)' }}>│</span>
                     )}
                   </Fragment>
                 );
@@ -92,7 +92,7 @@ export default function Hero() {
                       <IconComponent size={25} />
                     </a>
                     {index < 2 && (
-                      <span style={{ color: 'var(--color-text-secondary)' }}>-</span>
+                      <span style={{ color: 'var(--color-text-secondary)' }}>│</span>
                     )}
                   </Fragment>
                 );
@@ -104,7 +104,7 @@ export default function Hero() {
           <img 
             src={meImage.src} 
             alt="Batuhan Buber" 
-            className="rounded-full w-75 h-75 object-cover"
+            className="rounded-full w-75 h-75 object-cover mb-16 md:mb-0"
           />
         </div>
       </div>
