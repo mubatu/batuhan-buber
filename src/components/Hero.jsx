@@ -43,7 +43,7 @@ const socialLinks = [
 
 export default function Hero() {
   return (
-    <section className="flex justify-start h-screen max-w-4xl mx-auto px-6 pt-50">
+    <section className="flex justify-start h-screen max-w-4xl mx-auto px-6 pt-45">
       <div className="flex flex-col md:flex-row items-start gap-12">
         <div className="md:flex-1">
           <h1 className="text-4xl mb-6" style={{ color: 'var(--color-text-primary)' }}>
