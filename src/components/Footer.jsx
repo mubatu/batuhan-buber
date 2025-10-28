@@ -1,4 +1,4 @@
-import { MdEmail } from 'react-icons/md';
+import { GrMail } from 'react-icons/gr';
 import './Footer.css';
 
 export default function Footer() {
@@ -10,8 +10,8 @@ export default function Footer() {
           className="footer-email"
           aria-label="Send email to Batuhan Buber"
         >
-          <MdEmail className="mail-icon" aria-hidden="true" />
-          batuhan@buber.tr
+          <GrMail className="mail-icon" aria-hidden="true" />
+          Contact: batuhan@buber.tr
         </a>
       </div>
     </footer>
