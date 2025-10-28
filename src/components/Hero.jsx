@@ -68,7 +68,7 @@ export default function Hero() {
             About
           </h1>
           <p className="text-lg leading-relaxed mb-12" style={{ color: 'var(--color-text-primary)' }}>
-          I believe my greatest strengths are always asking questions and never doing things halfway.<br /><br />
+          I believe my greatest strengths are always asking questions, never doing things halfway, and having an eye for design.<br /><br />
           Outside of work, I love games, sports, movies, and photography.
           </p>
           <div className="flex items-center gap-4 flex-wrap">
