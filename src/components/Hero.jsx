@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { FaLinkedin, FaGithub, FaXTwitter, FaInstagram, FaSteam } from 'react-icons/fa6';
+import { FaLinkedin, FaGithub, FaXTwitter, FaInstagram, FaSteam, FaBehance } from 'react-icons/fa6';
 import { SiLetterboxd } from 'react-icons/si';
 import meImage from '../assets/me.jpg';
 
@@ -25,6 +25,11 @@ const socialLinks = [
     Icon: FaInstagram
   },
   {
+    name: "Behance",
+    url: "https://www.behance.net/mubatu",
+    Icon: FaBehance
+  },
+  {
     name: "Steam",
     url: "https://steamcommunity.com/id/mubatu",
     Icon: FaSteam
@@ -48,33 +53,58 @@ export default function Hero() {
           I believe my greatest strengths are always asking questions, never doing things halfway, and having an eye for design.<br /><br />
           Outside of work, I love games, sports, movies, and photography.
           </p>
-          <div className="flex items-center gap-4 flex-wrap">
-            {socialLinks.map((social, index) => {
-              const IconComponent = social.Icon;
-              return (
-                <Fragment key={social.name}>
-                  <a 
-                    href={social.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="social-icon" 
-                    aria-label={social.name}
-                  >
-                    <IconComponent size={25} />
-                  </a>
-                  {index < socialLinks.length - 1 && (
-                    <span style={{ color: 'var(--color-text-secondary)' }}>-</span>
-                  )}
-                </Fragment>
-              );
-            })}
+          <div className="flex flex-col gap-4">
+            {/* First row: 4 links */}
+            <div className="flex items-center justify-center gap-4">
+              {socialLinks.slice(0, 4).map((social, index) => {
+                const IconComponent = social.Icon;
+                return (
+                  <Fragment key={social.name}>
+                    <a 
+                      href={social.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="social-icon" 
+                      aria-label={social.name}
+                    >
+                      <IconComponent size={25} />
+                    </a>
+                    {index < 3 && (
+                      <span style={{ color: 'var(--color-text-secondary)' }}>-</span>
+                    )}
+                  </Fragment>
+                );
+              })}
+            </div>
+            {/* Second row: 3 links */}
+            <div className="flex items-center justify-center gap-4">
+              {socialLinks.slice(4, 7).map((social, index) => {
+                const IconComponent = social.Icon;
+                return (
+                  <Fragment key={social.name}>
+                    <a 
+                      href={social.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="social-icon" 
+                      aria-label={social.name}
+                    >
+                      <IconComponent size={25} />
+                    </a>
+                    {index < 2 && (
+                      <span style={{ color: 'var(--color-text-secondary)' }}>-</span>
+                    )}
+                  </Fragment>
+                );
+              })}
+            </div>
           </div>
         </div>
         <div className="shrink-0 mx-auto md:mx-0">
           <img 
             src={meImage.src} 
             alt="Batuhan Buber" 
-            className="rounded-full w-70 h-70 object-cover"
+            className="rounded-full w-75 h-75 object-cover"
           />
         </div>
       </div>
