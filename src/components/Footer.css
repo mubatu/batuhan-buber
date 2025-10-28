@@ -38,7 +38,8 @@
 }
 
 .footer-email:hover {
-  color: var(--color-header-text-hover);
+  transform: scale(1.03);
+  transition: transform 0.3s ease;
 }
 
 .footer-email:focus {
