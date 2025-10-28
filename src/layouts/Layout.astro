@@ -1,5 +1,6 @@
 ---
 import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
 
 interface Props {
 	title?: string;
@@ -22,7 +23,10 @@ const pageTitle = title === 'Batuhan Buber' ? title : `${title} | Batuhan Buber`
 	</head>
 	<body>
 		<Header client:load />
-		<slot />
+		<main class="main-content">
+			<slot />
+		</main>
+		<Footer client:load />
 	</body>
 </html>
 
@@ -32,5 +36,10 @@ const pageTitle = title === 'Batuhan Buber' ? title : `${title} | Batuhan Buber`
 		margin: 0;
 		width: 100%;
 		height: 100%;
+	}
+
+	.main-content {
+		padding-bottom: 4rem;
+		min-height: calc(100vh - 80px);
 	}
 </style>
