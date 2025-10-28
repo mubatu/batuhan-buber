@@ -104,7 +104,7 @@ export default function Hero() {
           <img 
             src={meImage.src} 
             alt="Batuhan Buber" 
-            className="rounded-full w-75 h-75 object-cover mb-16 md:mb-0"
+            className="rounded-full w-75 h-75 object-cover mb-20 md:mb-0"
           />
         </div>
       </div>
