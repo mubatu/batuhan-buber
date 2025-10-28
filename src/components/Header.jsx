@@ -9,25 +9,32 @@ export default function Header() {
   const [currentPath, setCurrentPath] = useState('/');
 
   useEffect(() => {
-    // Set current path, removing trailing slash for consistency
-    setCurrentPath(window.location.pathname.replace(/\/$/, '') || '/');
+    // Sync state with the theme that's already applied by the inline script
+    const syncTheme = () => {
+      const isDarkMode = document.documentElement.classList.contains('dark');
+      setIsDark(isDarkMode);
+    };
 
-    // Get stored theme or default to light
-    const storedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = storedTheme || (prefersDark ? 'dark' : 'light');
+    // Update current path
+    const updatePath = () => {
+      setCurrentPath(window.location.pathname.replace(/\/$/, '') || '/');
+    };
     
-    // Apply theme
-    const html = document.documentElement;
-    if (theme === 'dark') {
-      html.classList.add('dark');
-      html.classList.remove('light');
-      setIsDark(true);
-    } else {
-      html.classList.add('light');
-      html.classList.remove('dark');
-      setIsDark(false);
-    }
+    // Initialize on mount
+    syncTheme();
+    updatePath();
+
+    // Listen for Astro view transitions
+    const handlePageLoad = () => {
+      syncTheme();
+      updatePath();
+    };
+
+    document.addEventListener('astro:page-load', handlePageLoad);
+    
+    return () => {
+      document.removeEventListener('astro:page-load', handlePageLoad);
+    };
   }, []);
 
   // Helper function to check if link is active
