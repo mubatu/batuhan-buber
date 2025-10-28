@@ -1,5 +1,5 @@
-import { Sun, Moon } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { LuSunMedium, LuMoon } from 'react-icons/lu';
 import './Header.css';
 import logoBlack from '../assets/logo-black.png?url';
 import logoWhite from '../assets/logo-white.png?url';
@@ -99,7 +99,7 @@ export default function Header() {
         className="theme-toggle"
         aria-label="Toggle theme"
       >
-        {isDark ? <Sun size={20} /> : <Moon size={20} />}
+        {isDark ? <LuSunMedium size={20} /> : <LuMoon size={20} />}
       </button>
     </header>
   );
