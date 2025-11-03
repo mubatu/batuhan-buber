@@ -11,6 +11,7 @@ export interface Experience {
   title: string;
   location: string;
   date: string;
+  technologies?: string[];
 }
 
 export interface ResumeData {

@@ -1,9 +1,21 @@
 import { type Education, type Experience } from '../types/resume';
+import { SiReact, SiDotnet } from 'react-icons/si';
+import { VscTerminalPowershell } from 'react-icons/vsc';
+import { TbDatabase } from 'react-icons/tb';
+import { type IconType } from 'react-icons';
 
 interface ResumeProps {
   education: Education[];
   experience: Experience[];
 }
+
+// Technology icon mapping
+const techIcons: Record<string, IconType> = {
+  'React': SiReact,
+  '.NET Core': SiDotnet,
+  'MS SQL Server': TbDatabase,
+  'PowerShell': VscTerminalPowershell,
+};
 
 export default function Resume({ education, experience }: ResumeProps) {
   return (
@@ -54,6 +66,22 @@ export default function Resume({ education, experience }: ResumeProps) {
                 <p className="text-lg font-light text-(--color-text-primary)">
                   {exp.title}
                 </p>
+                {exp.technologies && exp.technologies.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    {exp.technologies.map((tech, techIndex) => {
+                      const Icon = techIcons[tech];
+                      return (
+                        <span
+                          key={techIndex}
+                          className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-(--color-text-primary) border border-(--color-text-primary) rounded opacity-70 transition-transform duration-200 hover:scale-[1.03]"
+                        >
+                          {Icon && <Icon className="w-3 h-3" />}
+                          {tech}
+                        </span>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
               <div className="mt-2 md:mt-0 md:text-right md:ml-8">
                 <p className="text-sm text-(--color-text-primary)">
