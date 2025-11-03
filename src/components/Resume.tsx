@@ -22,7 +22,7 @@ export default function Resume({ education, experience }: ResumeProps) {
     <div className="w-full space-y-12">
       {/* Education Section */}
       <section>
-        <h2 className="text-xl font-medium text-(--color-text-primary)">
+        <h2 className="text-lg font-medium text-(--color-text-primary)">
           Education
         </h2>
         <div className="h-px bg-(--color-text-primary) mb-6 opacity-30"></div>
@@ -30,16 +30,21 @@ export default function Resume({ education, experience }: ResumeProps) {
           {education.map((edu, index) => (
             <div key={index} className="flex flex-col md:flex-row md:justify-between md:items-start">
               <div className="flex-1">
-                <h3 className="text-xl font-medium text-(--color-text-primary)">
+                <a
+                  href={edu.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative text-lg font-medium text-(--color-text-primary) inline-block after:content-[''] after:absolute after:w-0 after:h-px after:bottom-0 after:left-0 after:bg-(--color-text-primary) after:transition-all after:duration-300 hover:after:w-full"
+                >
                   {edu.schoolName}
-                </h3>
+                </a>
                 <p className="text-lg font-light text-(--color-text-primary)">
                   {edu.degree}
                 </p>
               </div>
               <div className="mt-2 md:mt-0 md:text-right md:ml-8">
                 <p className="text-sm text-(--color-text-primary)">
-                  {edu.date}
+                  {edu.date}{edu.expected && ' (expected)'}
                 </p>
                 <p className="text-sm text-(--color-text-primary)">
                   {edu.location}
@@ -52,7 +57,7 @@ export default function Resume({ education, experience }: ResumeProps) {
 
       {/* Experience Section */}
       <section>
-        <h2 className="text-xl font-medium text-(--color-text-primary)">
+        <h2 className="text-lg font-medium text-(--color-text-primary)">
           Experience
         </h2>
         <div className="h-px bg-(--color-text-primary) mb-6 opacity-30"></div>
@@ -60,9 +65,14 @@ export default function Resume({ education, experience }: ResumeProps) {
           {experience.map((exp, index) => (
             <div key={index} className="flex flex-col md:flex-row md:justify-between md:items-start">
               <div className="flex-1">
-                <h3 className="text-xl font-medium text-(--color-text-primary)">
+                <a
+                  href={exp.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative text-lg font-medium text-(--color-text-primary) inline-block after:content-[''] after:absolute after:w-0 after:h-px after:bottom-0 after:left-0 after:bg-(--color-text-primary) after:transition-all after:duration-300 hover:after:w-full"
+                >
                   {exp.companyName}
-                </h3>
+                </a>
                 <p className="text-lg font-light text-(--color-text-primary)">
                   {exp.title}
                 </p>
