@@ -1,17 +1,47 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ResumeComponent from '../components/Resume.tsx';
 import '../styles/global.css';
+
+// Resume data
+const resumeData = {
+  education: [
+    {
+      schoolName: 'Bogazici University',
+      degree: 'B. Sc. in Computer Engineering',
+      location: 'Istanbul, Turkey',
+      date: 'Sep 2021 - Jun 2026',
+      expected: true,
+      url: 'https://cmpe.bogazici.edu.tr/'
+    }
+  ],
+  experience: [
+    {
+      companyName: 'Turkish Technology',
+      title: 'Database Engineer (Part-Time)',
+      location: 'Istanbul, Turkey',
+      date: 'Jun 2025 - Present',
+      technologies: ['PowerShell', 'MS SQL Server', 'React', '.NET Core'],
+      url: 'https://turkishtechnology.com/en'
+    },
+    {
+      companyName: 'Fibabanka',
+      title: 'Database Administrator (Intern)',
+      location: 'Istanbul, Turkey',
+      date: 'Jun 2024 - Jun 2025',
+      technologies: ['PowerShell', 'MS SQL Server'],
+      url: 'https://www.fibabanka.com.tr/en'
+    }
+  ]
+};
 ---
 
 <Layout title="Resume">
-  <main class="flex justify-start max-w-4xl mx-auto px-6 pt-40">
-    <div class="flex flex-col">
-      <h1 class="text-4xl mb-6" style="color: var(--color-text-primary)">
-        Resume
-      </h1>
-      <p class="text-lg" style="color: var(--color-text-secondary)">
-        Coming soon
-      </p>
-    </div>
+  <main class="flex justify-center items-center max-w-4xl mx-auto px-6 pt-40 pb-20">
+    <ResumeComponent 
+      client:only="react"
+      education={resumeData.education}
+      experience={resumeData.experience}
+    />
   </main>
 </Layout>
