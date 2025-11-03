@@ -46,9 +46,6 @@ export default function Hero() {
     <section className="flex justify-start h-screen max-w-4xl mx-auto px-6 pt-40">
       <div className="flex flex-col md:flex-row items-start gap-12">
         <div className="md:flex-1">
-          <h1 className="text-4xl mb-6" style={{ color: 'var(--color-text-primary)' }}>
-            About
-          </h1>
           <p className="text-lg leading-relaxed mb-12" style={{ color: 'var(--color-text-primary)' }}>
           I believe my greatest strengths are asking many questions, never doing things halfway, and having an eye for design.<br /><br />
           Outside of work, I love games, sports, movies, and photography.
