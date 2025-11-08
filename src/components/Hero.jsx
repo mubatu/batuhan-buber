@@ -47,7 +47,8 @@ export default function Hero() {
       <div className="flex flex-col md:flex-row items-start gap-12">
         <div className="md:flex-1">
           <p className="text-lg leading-relaxed mb-12" style={{ color: 'var(--color-text-primary)' }}>
-          I believe my greatest strengths are always keep asking questions, never doing things halfway, and having an eye for design.<br /><br />
+          I believe my greatest strengths are always keep asking questions and never doing things halfway.<br />
+          <br />
           Outside of work, I love games, sports, movies, and photography.
           </p>
           <div className="flex flex-col gap-4">
@@ -101,7 +102,7 @@ export default function Hero() {
           <img 
             src={meImage.src} 
             alt="Batuhan Buber" 
-            className="rounded-full w-75 h-75 object-cover mb-20 md:mb-0 profile-image"
+            className="rounded-full w-73 h-73 object-cover mb-20 md:mb-0 profile-image"
           />
         </div>
       </div>

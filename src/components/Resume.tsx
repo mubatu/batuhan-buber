@@ -58,7 +58,7 @@ export default function Resume({ education, experience }: ResumeProps) {
       {/* Experience Section */}
       <section>
         <h2 className="text-lg font-medium text-(--color-text-primary)">
-          Experience
+          Work Experience
         </h2>
         <div className="h-px bg-(--color-text-primary) mb-6 opacity-30"></div>
         <div className="space-y-6">
@@ -83,7 +83,7 @@ export default function Resume({ education, experience }: ResumeProps) {
                       return (
                         <span
                           key={techIndex}
-                          className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-(--color-text-primary) border border-(--color-text-primary) rounded opacity-70 transition-transform duration-200 hover:scale-[1.03]"
+                          className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-(--color-text-primary) bg-(--color-bg-secondary) rounded opacity-70 transition-transform duration-200 hover:scale-[1.03]"
                         >
                           {Icon && <Icon className="w-3 h-3" />}
                           {tech}
