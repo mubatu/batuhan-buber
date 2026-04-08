@@ -3,6 +3,8 @@ import { SiReact, SiDotnet } from 'react-icons/si';
 import { VscTerminalPowershell } from 'react-icons/vsc';
 import { TbDatabase } from 'react-icons/tb';
 import { type IconType } from 'react-icons';
+import { PiFileSql } from 'react-icons/pi';
+import { DiIllustrator, DiPhotoshop } from 'react-icons/di';
 
 interface ResumeProps {
   education: Education[];
@@ -15,6 +17,9 @@ const techIcons: Record<string, IconType> = {
   '.NET Core': SiDotnet,
   'MS SQL Server': TbDatabase,
   'PowerShell': VscTerminalPowershell,
+  'SQL': PiFileSql,
+  'Adobe Photoshop': DiPhotoshop,
+  'Adobe Illustrator': DiIllustrator,
 };
 
 export default function Resume({ education, experience }: ResumeProps) {
@@ -34,7 +39,7 @@ export default function Resume({ education, experience }: ResumeProps) {
                   href={edu.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative text-lg font-medium text-(--color-text-primary) inline-block after:content-[''] after:absolute after:w-0 after:h-px after:bottom-0 after:left-0 after:bg-(--color-text-primary) after:transition-all after:duration-300 hover:after:w-full"
+                  className="relative text-lg font-medium text-(--color-text-primary) inline-block hover:underline"
                 >
                   {edu.schoolName}
                 </a>
@@ -69,7 +74,7 @@ export default function Resume({ education, experience }: ResumeProps) {
                   href={exp.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative text-lg font-medium text-(--color-text-primary) inline-block after:content-[''] after:absolute after:w-0 after:h-px after:bottom-0 after:left-0 after:bg-(--color-text-primary) after:transition-all after:duration-300 hover:after:w-full"
+                  className="text-lg font-medium text-(--color-text-primary) inline-block hover:underline"
                 >
                   {exp.companyName}
                 </a>
@@ -108,4 +113,3 @@ export default function Resume({ education, experience }: ResumeProps) {
     </div>
   );
 }
-
