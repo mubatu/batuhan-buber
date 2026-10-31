@@ -6,6 +6,7 @@ import { TbDatabase } from 'react-icons/tb';
 import { type IconType } from 'react-icons';
 import { PiFileSql } from 'react-icons/pi';
 import { DiIllustrator, DiPhotoshop } from 'react-icons/di';
+import polygunArenaLogo from '../assets/polygun-arena.png?url';
 
 interface ResumeProps {
   education: Education[];
@@ -21,6 +22,11 @@ const techIcons: Record<string, IconType> = {
   'SQL': PiFileSql,
   'Adobe Photoshop': DiPhotoshop,
   'Adobe Illustrator': DiIllustrator,
+};
+
+// Image icons for tags without a matching react-icon
+const techImages: Record<string, string> = {
+  'Polygun Arena': polygunArenaLogo,
 };
 
 function ResumeSection({ title, children }: { title: string; children: ReactNode }) {
@@ -105,12 +111,14 @@ export default function Resume({ education, experience }: ResumeProps) {
               <div className="flex flex-wrap gap-2 mt-3">
                 {exp.technologies.map((tech) => {
                   const Icon = techIcons[tech];
+                  const image = techImages[tech];
                   return (
                     <span
                       key={tech}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-(--color-text-primary) bg-(--color-bg-secondary) rounded opacity-70 transition-transform duration-200 hover:scale-[1.03]"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium text-(--color-text-primary) bg-(--color-bg-secondary) rounded transition-transform duration-200 hover:scale-[1.03]"
                     >
                       {Icon && <Icon className="w-3 h-3" />}
+                      {image && <img src={image} alt="" className="w-3 h-3 rounded-xs" />}
                       {tech}
                     </span>
                   );
