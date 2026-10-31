@@ -18,7 +18,6 @@ Personal portfolio website built with Astro.
 │   ├── designs/
 │   │   ├── graphics/
 │   │   └── logos/
-│   ├── favicon-astro.svg
 │   └── favicon.svg
 ├── src/
 │   ├── assets/
@@ -29,9 +28,8 @@ Personal portfolio website built with Astro.
 │   │   ├── Header.jsx
 │   │   ├── Hero.jsx
 │   │   └── Resume.tsx
-│   ├── content/
-│   │   ├── blog/
-│   │   └── designs/
+│   ├── data/
+│   │   └── resume.ts
 │   ├── layouts/
 │   │   └── Layout.astro
 │   ├── pages/
@@ -41,7 +39,6 @@ Personal portfolio website built with Astro.
 │   │   └── resume.astro
 │   ├── styles/
 │   │   └── global.css
-│   ├── content.config.ts
 │   └── types/
 │       └── resume.ts
 ├── astro.config.mjs

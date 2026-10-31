@@ -9,7 +9,6 @@ interface Props {
 }
 
 const { title = 'Batuhan Büber', description = 'Computer Engineer - Designer - Developer' } = Astro.props;
-const pageTitle = title === 'Batuhan Büber' ? title : `${title}`;
 ---
 
 <!doctype html>
@@ -20,27 +19,22 @@ const pageTitle = title === 'Batuhan Büber' ? title : `${title}`;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="description" content={description} />
 		<meta name="generator" content={Astro.generator} />
-		<title>{pageTitle}</title>
+		<title>{title}</title>
 		<ClientRouter />
 		<script is:inline>
 			// Apply theme immediately to prevent flash
-			function applyTheme() {
-				const theme = localStorage.getItem('theme') || 
+			function applyTheme(doc) {
+				const theme = localStorage.getItem('theme') ||
 					(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-				document.documentElement.classList.remove('light', 'dark');
-				document.documentElement.classList.add(theme);
+				doc.documentElement.classList.remove('light', 'dark');
+				doc.documentElement.classList.add(theme);
 			}
-			
+
 			// Apply on initial load
-			applyTheme();
-			
+			applyTheme(document);
+
 			// Ensure new document has correct theme BEFORE swap to avoid flashes
-			document.addEventListener('astro:before-swap', (ev) => {
-				const theme = localStorage.getItem('theme') || 
-					(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-				ev.newDocument.documentElement.classList.remove('light', 'dark');
-				ev.newDocument.documentElement.classList.add(theme);
-			});
+			document.addEventListener('astro:before-swap', (ev) => applyTheme(ev.newDocument));
 		</script>
 	</head>
 	<body>
