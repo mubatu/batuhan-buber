@@ -39,7 +39,7 @@ export default function Header() {
 
   // Helper function to check if link is active
   const isActive = (path) => {
-    return currentPath === path;
+    return currentPath === path || (path !== '/' && currentPath.startsWith(`${path}/`));
   };
 
   const toggleTheme = () => {

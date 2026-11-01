@@ -1,0 +1,181 @@
+---
+import { Image } from 'astro:assets';
+import ProjectBadge from './ProjectBadge.astro';
+import ProjectLinks from './ProjectLinks.astro';
+import TechTag from './TechTag';
+import { type Project, getCardHref, getStatus } from '../lib/projects';
+
+interface Props {
+  project: Project;
+  featured?: boolean;
+}
+
+const { project, featured = false } = Astro.props;
+const { title, summary, logo, cover, tags } = project.data;
+const cardHref = getCardHref(project);
+const isExternal = cardHref?.startsWith('http');
+
+// Shown in place of a logo until one is added
+const initials = title
+  .split(/\s+/)
+  .map((word) => word[0])
+  .join('')
+  .slice(0, 2)
+  .toUpperCase();
+---
+
+<article class:list={['card', { 'card--featured': featured && cover }]}>
+  {cover && (
+    <Image src={cover} alt={`${title} preview`} widths={[480, 800]} sizes="(min-width: 768px) 400px, 100vw" class="cover" />
+  )}
+  <div class="content">
+    <div class="heading">
+      {logo ? (
+        <Image src={logo} alt={`${title} logo`} width={88} height={88} class="logo" />
+      ) : (
+        <div class="logo logo--fallback" aria-hidden="true">{initials}</div>
+      )}
+      <div class="title-group">
+        <h2 class="title">
+          {cardHref ? (
+            <a
+              href={cardHref}
+              class="card-link"
+              target={isExternal ? '_blank' : undefined}
+              rel={isExternal ? 'noopener noreferrer' : undefined}
+            >{title}</a>
+          ) : title}
+        </h2>
+        <ProjectBadge status={getStatus(project)} />
+      </div>
+    </div>
+
+    <p class="summary">{summary}</p>
+
+    {tags.length > 0 && (
+      <div class="tags">
+        {tags.map((tag) => <TechTag name={tag} />)}
+      </div>
+    )}
+
+    <div class="actions">
+      <ProjectLinks project={project} />
+    </div>
+  </div>
+</article>
+
+<style>
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    transition: border-color 0.2s ease;
+  }
+
+  .card:hover {
+    border-color: var(--color-text-secondary);
+  }
+
+  .cover {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .heading {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+  }
+
+  .logo {
+    width: 2.75rem;
+    height: 2.75rem;
+    flex-shrink: 0;
+    border-radius: 0.625rem;
+    object-fit: cover;
+  }
+
+  .logo--fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-secondary);
+  }
+
+  .title-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+
+  .title {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  /* Stretch the title link over the whole card; buttons sit above it */
+  .card-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 0.75rem;
+  }
+
+  .card-link:focus-visible {
+    outline: none;
+  }
+
+  .card-link:focus-visible::after {
+    outline: 2px solid var(--color-text-primary);
+    outline-offset: 2px;
+  }
+
+  .summary {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .actions {
+    margin-top: auto;
+  }
+
+  /* Featured card puts the cover beside the content on wide screens */
+  @media (min-width: 768px) {
+    .card--featured {
+      flex-direction: row-reverse;
+    }
+
+    .card--featured .cover {
+      width: 45%;
+      aspect-ratio: auto;
+      border-bottom: none;
+      border-left: 1px solid var(--color-border);
+    }
+  }
+</style>

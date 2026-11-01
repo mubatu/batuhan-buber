@@ -1,0 +1,210 @@
+---
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import { LuArrowLeft } from 'react-icons/lu';
+import Layout from '../../layouts/Layout.astro';
+import ProjectBadge from '../../components/ProjectBadge.astro';
+import ProjectLinks from '../../components/ProjectLinks.astro';
+import TechTag from '../../components/TechTag';
+import { type Project, getProjects, getStatus, hasDetails } from '../../lib/projects';
+import '../../styles/global.css';
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects
+    .filter(hasDetails)
+    .map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props as { project: Project };
+const { title, summary, logo, cover, tags } = project.data;
+const { Content } = await render(project);
+---
+
+<Layout title={title} description={summary}>
+  <article class="max-w-3xl mx-auto px-6 pt-40 pb-20 flex flex-col gap-6">
+    <a href="/projects" class="back">
+      <LuArrowLeft aria-hidden="true" />Projects
+    </a>
+
+    <header class="project-header flex flex-col gap-4">
+      <div class="flex items-center gap-4">
+        {logo && <Image src={logo} alt={`${title} logo`} width={112} height={112} class="logo" />}
+        <div class="flex flex-col items-start gap-1">
+          <h1 class="text-2xl font-medium" style="color: var(--color-text-primary)">{title}</h1>
+          <ProjectBadge status={getStatus(project)} />
+        </div>
+      </div>
+      <p class="leading-relaxed" style="color: var(--color-text-secondary)">{summary}</p>
+      {tags.length > 0 && (
+        <div class="flex flex-wrap gap-2">
+          {tags.map((tag) => <TechTag name={tag} />)}
+        </div>
+      )}
+      <ProjectLinks project={project} showDetails={false} />
+    </header>
+
+    {cover && <Image src={cover} alt={`${title} preview`} widths={[800, 1400]} sizes="(min-width: 768px) 720px, 100vw" class="cover" />}
+
+    <div class="body">
+      <Content />
+    </div>
+  </article>
+</Layout>
+
+<style>
+  /* Wavy divider between the project header and the article */
+  .project-header {
+    position: relative;
+    padding-bottom: 2.5rem;
+  }
+
+  .project-header::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 0.5rem;
+    background-color: var(--color-text-secondary);
+    opacity: 0.5;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 8'%3E%3Cpath d='M0 4 Q6 0 12 4 T24 4' fill='none' stroke='black' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x left center / 1.5rem 0.5rem;
+  }
+
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    align-self: flex-start;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    transition: color 0.2s ease;
+  }
+
+  .back:hover {
+    color: var(--color-text-primary);
+  }
+
+  .logo {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 0.75rem;
+    object-fit: cover;
+  }
+
+  .cover {
+    width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-border);
+  }
+
+  /* Markdown content */
+  .body {
+    line-height: 1.75;
+    color: var(--color-text-primary);
+  }
+
+  .body :global(h2) {
+    margin: 3rem 0 1rem;
+    padding-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.3;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .body :global(h2:first-child) {
+    margin-top: 1rem;
+  }
+
+  .body :global(h3) {
+    margin: 2rem 0 0.5rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .body :global(p) {
+    margin: 0 0 1rem;
+  }
+
+  .body :global(ul),
+  .body :global(ol) {
+    margin: 0 0 1rem;
+    padding-left: 1.25rem;
+  }
+
+  .body :global(ul) {
+    list-style: disc;
+  }
+
+  .body :global(ol) {
+    list-style: decimal;
+  }
+
+  .body :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .body :global(a) {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .body :global(img) {
+    width: 100%;
+    height: auto;
+    margin: 0.5rem 0 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-border);
+  }
+
+  /* Wrap tall images in <div class="narrow"> so they don't dwarf the text */
+  .body :global(.narrow) {
+    max-width: 24rem;
+    margin-inline: auto;
+  }
+
+  .body :global(.narrow.medium) {
+    max-width: 32rem;
+  }
+
+  .body :global(.narrow.small) {
+    max-width: 16rem;
+  }
+
+  /* Separate borders let the table keep rounded corners */
+  .body :global(table) {
+    width: 100%;
+    margin: 0.5rem 0 1.5rem;
+    font-size: 0.875rem;
+    border: 1px solid var(--color-border);
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+
+  .body :global(th),
+  .body :global(td) {
+    padding: 0.75rem 1rem;
+    text-align: left;
+  }
+
+  .body :global(td) {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .body :global(th + th),
+  .body :global(td + td) {
+    border-left: 1px solid var(--color-border);
+  }
+
+  .body :global(th) {
+    font-weight: 600;
+    background-color: var(--color-bg-secondary);
+  }
+
+  .body :global(td:first-child) {
+    font-weight: 500;
+  }
+</style>

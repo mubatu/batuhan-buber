@@ -1,0 +1,68 @@
+---
+import { FaGithub } from 'react-icons/fa6';
+import { LuArrowRight, LuGlobe } from 'react-icons/lu';
+import { type Project, getStatus, hasDetails } from '../lib/projects';
+
+interface Props {
+  project: Project;
+  showDetails?: boolean;
+}
+
+const { project, showDetails = true } = Astro.props;
+const { website, github } = project.data.links;
+const websiteLabel = website && new URL(website).hostname.replace(/^www\./, '');
+const detailsLabel = getStatus(project) === 'case-study' ? 'Read more' : 'Details';
+---
+
+<div class="links">
+  {website && (
+    <a href={website} target="_blank" rel="noopener noreferrer" class="link">
+      <LuGlobe aria-hidden="true" />{websiteLabel}
+    </a>
+  )}
+  {github && (
+    <a href={github} target="_blank" rel="noopener noreferrer" class="link">
+      <FaGithub aria-hidden="true" />GitHub
+    </a>
+  )}
+  {showDetails && hasDetails(project) && (
+    <a href={`/projects/${project.id}`} class="link">
+      {detailsLabel}<LuArrowRight aria-hidden="true" />
+    </a>
+  )}
+</div>
+
+<style>
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .link {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+    border-radius: 0.375rem;
+    text-decoration: none;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .link:hover {
+    border-color: var(--color-text-primary);
+    transform: scale(1.03);
+  }
+
+  /* The first link is the main action of the card */
+  .link:first-child {
+    color: var(--color-bg-primary);
+    background-color: var(--color-text-primary);
+    border-color: var(--color-text-primary);
+  }
+</style>
