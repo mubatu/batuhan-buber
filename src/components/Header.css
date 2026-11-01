@@ -160,23 +160,14 @@
   }
 }
 
-/* Responsive design for to 429px screens */
+/* Narrow phones: text and gaps shrink with the screen so the four tabs stay on one row down to 320px */
 @media (max-width: 429px) {
   .nav-link {
-    font-size: 1.23rem;
+    font-size: min(1.23rem, 4.6vw);
   }
-}
 
-/* Responsive design for to 405px screens */
-@media (max-width: 405px) {
-  .nav-link {
-    font-size: 1.15rem;
-  }
-}
-
-/* Responsive design for to 385px screens */
-@media (max-width: 385px) {
-  .nav-link {
-    font-size: 1.1rem;
+  .nav-left,
+  .nav-right {
+    gap: min(1.5rem, 5.5vw);
   }
 }
