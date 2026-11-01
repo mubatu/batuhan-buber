@@ -93,8 +93,8 @@ export default function Header() {
             </a>
           </li>
           <li>
-            <a href="/designs" className={`nav-link ${isActive('/designs') ? 'active' : ''}`}>
-              Designs
+            <a href="/gallery" className={`nav-link ${isActive('/gallery') ? 'active' : ''}`}>
+              Gallery
             </a>
           </li>
         </ul>

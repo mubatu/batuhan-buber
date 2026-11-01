@@ -1,8 +1,15 @@
-# batuhanbuber.com
+<h1 align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="src/assets/logo-white.png">
+    <img src="src/assets/logo-black.png" alt="Batuhan Büber" width="160">
+  </picture>
+</h1>
 
-Personal portfolio website built with Astro.
+<p align="center"><strong>▶ Live: <a href="https://batuhanbuber.com">batuhanbuber.com</a></strong></p>
 
-## Tech Stack
+My personal website: about me, resume, projects and a gallery of my own photos.
+
+## Stack
 
 - Astro 5
 - React 19
@@ -10,48 +17,12 @@ Personal portfolio website built with Astro.
 - TypeScript
 - React Icons
 
-## Project Structure
+## Adding Gallery Photos
 
-```text
-/
-├── public/
-│   ├── designs/
-│   │   ├── graphics/
-│   │   └── logos/
-│   └── favicon.svg
-├── src/
-│   ├── assets/
-│   ├── components/
-│   │   ├── Footer.css
-│   │   ├── Footer.jsx
-│   │   ├── Header.css
-│   │   ├── Header.jsx
-│   │   ├── Hero.jsx
-│   │   ├── ProjectBadge.astro
-│   │   ├── ProjectCard.astro
-│   │   ├── ProjectLinks.astro
-│   │   └── Resume.tsx
-│   ├── content/
-│   │   └── projects/
-│   ├── data/
-│   │   └── resume.ts
-│   ├── layouts/
-│   │   └── Layout.astro
-│   ├── lib/
-│   │   └── projects.ts
-│   ├── pages/
-│   │   ├── designs.astro
-│   │   ├── index.astro
-│   │   ├── projects/
-│   │   │   └── [slug].astro
-│   │   ├── projects.astro
-│   │   └── resume.astro
-│   ├── styles/
-│   │   └── global.css
-│   ├── content.config.ts
-│   └── types/
-│       └── resume.ts
-├── astro.config.mjs
-├── package.json
-└── tsconfig.json
+Keep the originals outside the repo and add shrunk copies (longest side 2560px, all metadata removed):
+
+```sh
+npm run photos -- <photo or folder>...
 ```
+
+Then add a `src/content/gallery/YYYY-MM-DD-slug.md` file for each photo; the date comes from the file name.
