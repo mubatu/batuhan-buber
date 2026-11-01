@@ -164,6 +164,22 @@ const { Content } = await render(project);
     margin-inline: auto;
   }
 
+  /* Wrap images in <div class="row"> to show them side by side */
+  .body :global(.row) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .body :global(.row p) {
+    margin: 0;
+  }
+
+  .body :global(.row img) {
+    margin: 0;
+  }
+
   .body :global(.narrow.medium) {
     max-width: 32rem;
   }
