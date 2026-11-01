@@ -1,4 +1,4 @@
-import { SiReact, SiDotnet, SiThreedotjs, SiUnity, SiHtml5, SiJavascript } from 'react-icons/si';
+import { SiReact, SiDotnet, SiThreedotjs, SiUnity, SiHtml5, SiJavascript, SiTypescript, SiPython, SiFastapi, SiSupabase } from 'react-icons/si';
 import { VscTerminalPowershell } from 'react-icons/vsc';
 import { TbBrandCSharp, TbDatabase } from 'react-icons/tb';
 import { type IconType } from 'react-icons';
@@ -21,6 +21,10 @@ const techIcons: Record<string, IconType> = {
   'Three.js': SiThreedotjs,
   'Unity': SiUnity,
   'C#': TbBrandCSharp,
+  'TypeScript': SiTypescript,
+  'Python': SiPython,
+  'FastAPI': SiFastapi,
+  'Supabase': SiSupabase,
 };
 
 // Image icons for tags without a matching react-icon
