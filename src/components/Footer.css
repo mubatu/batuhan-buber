@@ -16,7 +16,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem 1.5rem;
+  padding: 0.625rem 1.5rem;
   max-width: 1200px;
   margin: 0 auto;
 }

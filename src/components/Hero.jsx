@@ -46,7 +46,7 @@ const socialRows = [socialLinks.slice(0, 4), socialLinks.slice(4)];
 
 export default function Hero() {
   return (
-    <section className="flex justify-start h-screen max-w-4xl mx-auto px-6 pt-40">
+    <section className="flex justify-start h-screen max-w-4xl mx-auto px-6 pt-40 min-[911px]:pt-32">
       <div className="flex flex-col md:flex-row items-start gap-12">
         <div className="md:flex-1">
           <p className="text-lg leading-relaxed mb-12" style={{ color: 'var(--color-text-primary)' }}>
