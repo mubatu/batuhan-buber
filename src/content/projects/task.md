@@ -11,11 +11,11 @@ order: 6
 
 ## Overview
 
-Task is a mobile-first dashboard for planning and following up on tasks and reminders. You pick a name, add tasks with optional dates and reminders with exact or relative times, and track them from the dashboard, a monthly calendar, or the archive of completed items.
+Task is a mobile-first dashboard for planning and following up on tasks and reminders. You sign in with Google, add tasks with optional dates and reminders with exact or relative times, and track them from the dashboard, a monthly calendar, or the archive of completed items.
 
 ## Features
 
-- Name-only shared profiles with a normalized, persistent identity
+- Google sign-in with server-side, cookie-based sessions
 - Tasks with optional dates, and reminders with exact or relative times
 - Edit titles, notes, task dates, and reminder times from the dashboard, calendar, or archive
 - Dashboard, monthly calendar, and completed-item archive
@@ -27,11 +27,11 @@ Task is a mobile-first dashboard for planning and following up on tasks and remi
 
 Items are stored in Cloudflare D1, with server-side validation and ownership filtering so each profile only sees its own tasks and reminders.
 
-The profile name is intentionally not authentication. Anyone entering the same name can access that profile's items.
+Sign-in uses Google: the server verifies the Google ID token and keeps the session in an HttpOnly cookie. Every request acts on the signed-in user, so clients never send their own user ID.
 
 ## Stack
 
 - **Frontend:** React, TypeScript, Vite
-- **Backend:** Cloudflare Pages Functions
+- **Backend:** Cloudflare Workers
 - **Database:** Cloudflare D1
 - **Tests:** Vitest and Testing Library
