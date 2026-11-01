@@ -1,43 +1,31 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { type Project, getProjects } from '../lib/projects';
 import '../styles/global.css';
+
+const projects = await getProjects();
+
+// Featured projects take a full row; consecutive others share a two-column grid
+const rows: (Project | Project[])[] = [];
+for (const project of projects) {
+  const last = rows.at(-1);
+  if (project.data.featured) rows.push(project);
+  else if (Array.isArray(last)) last.push(project);
+  else rows.push([project]);
+}
 ---
 
 <Layout title="Projects">
-  <main class="flex justify-start max-w-4xl mx-auto px-6 pt-40">
-    <div class="flex flex-col">
-      <h1 class="text-4xl mb-6" style="color: var(--color-text-primary)">
-        Projects
-      </h1>
-      <p class="text-lg mb-4" style="color: var(--color-text-secondary)">
-        Coming soon
-      </p>
-      <p
-        class="max-w-2xl text-base leading-relaxed"
-        style="color: var(--color-text-secondary)"
-      >
-        For now, you can see my projects on:
-        <br />
-        -
-        <a
-          href="https://www.linkedin.com/in/batuhanbuber/details/projects/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="underline underline-offset-4"
-          style="color: var(--color-text-primary)"
-          >Linkedin projects section</a
-        >
-        <br />
-        -
-        <a
-          href="https://github.com/mubatu"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="underline underline-offset-4"
-          style="color: var(--color-text-primary)"
-          >my GitHub page</a
-        >
-      </p>
-    </div>
-  </main>
+  <section class="max-w-4xl mx-auto px-6 pt-40 pb-20 flex flex-col gap-6">
+    {rows.map((row) =>
+      Array.isArray(row) ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {row.map((project) => <ProjectCard project={project} />)}
+        </div>
+      ) : (
+        <ProjectCard project={row} featured />
+      )
+    )}
+  </section>
 </Layout>

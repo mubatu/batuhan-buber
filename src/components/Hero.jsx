@@ -41,6 +41,9 @@ const socialLinks = [
   }
 ];
 
+// First row: 4 links, second row: the rest
+const socialRows = [socialLinks.slice(0, 4), socialLinks.slice(4)];
+
 export default function Hero() {
   return (
     <section className="flex justify-start h-screen max-w-4xl mx-auto px-6 pt-40">
@@ -52,50 +55,29 @@ export default function Hero() {
           Outside of work, I love games, sports, movies, and photography.
           </p>
           <div className="flex flex-col gap-4">
-            {/* First row: 4 links */}
-            <div className="flex items-center justify-center gap-4">
-              {socialLinks.slice(0, 4).map((social, index) => {
-                const IconComponent = social.Icon;
-                return (
-                  <Fragment key={social.name}>
-                    <a 
-                      href={social.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="social-icon" 
-                      aria-label={social.name}
-                    >
-                      <IconComponent size={25} />
-                    </a>
-                    {index < 3 && (
-                      <span style={{ color: 'var(--color-text-secondary)' }}>│</span>
-                    )}
-                  </Fragment>
-                );
-              })}
-            </div>
-            {/* Second row: 3 links */}
-            <div className="flex items-center justify-center gap-4">
-              {socialLinks.slice(4, 7).map((social, index) => {
-                const IconComponent = social.Icon;
-                return (
-                  <Fragment key={social.name}>
-                    <a 
-                      href={social.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="social-icon" 
-                      aria-label={social.name}
-                    >
-                      <IconComponent size={25} />
-                    </a>
-                    {index < 2 && (
-                      <span style={{ color: 'var(--color-text-secondary)' }}>│</span>
-                    )}
-                  </Fragment>
-                );
-              })}
-            </div>
+            {socialRows.map((row, rowIndex) => (
+              <div key={rowIndex} className="flex items-center justify-center gap-4">
+                {row.map((social, index) => {
+                  const IconComponent = social.Icon;
+                  return (
+                    <Fragment key={social.name}>
+                      <a 
+                        href={social.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="social-icon" 
+                        aria-label={social.name}
+                      >
+                        <IconComponent size={25} />
+                      </a>
+                      {index < row.length - 1 && (
+                        <span style={{ color: 'var(--color-text-secondary)' }}>│</span>
+                      )}
+                    </Fragment>
+                  );
+                })}
+              </div>
+            ))}
           </div>
         </div>
         <div className="shrink-0 mx-auto md:mx-0">
