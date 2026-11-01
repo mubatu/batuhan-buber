@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { LuArrowUpRight, LuChevronRight } from 'react-icons/lu';
 import ProjectBadge from './ProjectBadge.astro';
 import ProjectLinks from './ProjectLinks.astro';
 import TechTag from './TechTag';
@@ -48,6 +49,11 @@ const initials = title
         </h2>
         <ProjectBadge status={getStatus(project)} />
       </div>
+      {cardHref && (
+        <span class="chevron" aria-hidden="true">
+          {isExternal ? <LuArrowUpRight /> : <LuChevronRight />}
+        </span>
+      )}
     </div>
 
     <p class="summary">{summary}</p>
@@ -116,6 +122,20 @@ const initials = title
     font-weight: 500;
     color: var(--color-text-primary);
     background-color: var(--color-bg-secondary);
+  }
+
+  /* Shows that the whole card is clickable */
+  .chevron {
+    display: flex;
+    margin-left: auto;
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .card:hover .chevron {
+    color: var(--color-text-primary);
+    transform: translateX(3px);
   }
 
   .title-group {

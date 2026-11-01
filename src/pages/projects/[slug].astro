@@ -41,7 +41,7 @@ const { Content } = await render(project);
           {tags.map((tag) => <TechTag name={tag} />)}
         </div>
       )}
-      <ProjectLinks project={project} showDetails={false} />
+      <ProjectLinks project={project} />
     </header>
 
     {cover && <Image src={cover} alt={`${title} preview`} widths={[800, 1400]} sizes="(min-width: 768px) 720px, 100vw" class="cover" />}

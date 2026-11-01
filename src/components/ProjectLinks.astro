@@ -1,17 +1,15 @@
 ---
 import { FaGithub } from 'react-icons/fa6';
-import { LuArrowRight, LuGlobe } from 'react-icons/lu';
-import { type Project, getStatus, hasDetails } from '../lib/projects';
+import { LuGlobe } from 'react-icons/lu';
+import { type Project } from '../lib/projects';
 
 interface Props {
   project: Project;
-  showDetails?: boolean;
 }
 
-const { project, showDetails = true } = Astro.props;
+const { project } = Astro.props;
 const { website, github } = project.data.links;
 const websiteLabel = website && new URL(website).hostname.replace(/^www\./, '');
-const detailsLabel = getStatus(project) === 'case-study' ? 'Read more' : 'Details';
 ---
 
 <div class="links">
@@ -23,11 +21,6 @@ const detailsLabel = getStatus(project) === 'case-study' ? 'Read more' : 'Detail
   {github && (
     <a href={github} target="_blank" rel="noopener noreferrer" class="link">
       <FaGithub aria-hidden="true" />GitHub
-    </a>
-  )}
-  {showDetails && hasDetails(project) && (
-    <a href={`/projects/${project.id}`} class="link">
-      {detailsLabel}<LuArrowRight aria-hidden="true" />
     </a>
   )}
 </div>
