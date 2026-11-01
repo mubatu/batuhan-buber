@@ -21,4 +21,17 @@ const projects = defineCollection({
     }),
 });
 
-export const collections = { projects };
+// One markdown file per photo, named YYYY-MM-DD-slug (the date comes from the name);
+// only the frontmatter is used
+const gallery = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/gallery' }),
+  schema: ({ image }) =>
+    z.object({
+      image: image(),
+      location: z.string().optional(),
+      device: z.string().optional(),
+      label: z.string().optional(),
+    }),
+});
+
+export const collections = { projects, gallery };

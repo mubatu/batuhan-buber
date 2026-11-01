@@ -40,7 +40,7 @@ Personal portfolio website built with Astro.
 │   ├── lib/
 │   │   └── projects.ts
 │   ├── pages/
-│   │   ├── designs.astro
+│   │   ├── gallery.astro
 │   │   ├── index.astro
 │   │   ├── projects/
 │   │   │   └── [slug].astro
