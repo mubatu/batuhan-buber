@@ -8,6 +8,15 @@ import '../styles/global.css';
 // Longest side of the image opened in the popup (Full HD)
 const FULL_SIZE = 1920;
 
+// Thumbnail width per layout, so the browser picks the smallest file that is sharp enough.
+// The gallery is max 1104px wide (max-w-6xl minus px-6) and the script switches to
+// 3 columns at a 900px gallery (948px window) and 2 columns at 560px (608px window).
+// Wide photos (same ratio as the script's WIDE) can span two of the three columns.
+const SMALL_SIZES = 'calc(100vw - 48px)';
+const TWO_COLUMNS = '(min-width: 608px) calc((100vw - 52px) / 2)';
+const PHOTO_SIZES = `(min-width: 1152px) 365px, (min-width: 948px) calc((100vw - 56px) / 3), ${TWO_COLUMNS}, ${SMALL_SIZES}`;
+const WIDE_SIZES = `(min-width: 1152px) 734px, (min-width: 948px) calc((100vw - 56px) * 2 / 3 + 4px), ${TWO_COLUMNS}, ${SMALL_SIZES}`;
+
 // Entries are named YYYY-MM-DD-slug; newest first
 const entries = (await getCollection('gallery')).sort((a, b) => b.id.localeCompare(a.id));
 
@@ -61,7 +70,7 @@ const photos = await Promise.all(
             src={photo.image}
             alt={photo.alt}
             widths={[480, 960]}
-            sizes="(min-width: 640px) 50vw, 100vw"
+            sizes={photo.image.width / photo.image.height >= 1.4 ? WIDE_SIZES : PHOTO_SIZES}
             loading={index < 6 ? 'eager' : 'lazy'}
           />
           <span class="overlay" aria-hidden="true">
