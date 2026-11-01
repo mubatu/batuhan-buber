@@ -24,11 +24,14 @@ const photos = await Promise.all(
         : { height: Math.min(image.height, FULL_SIZE) }),
     });
     const date = id.match(/^\d{4}-\d{2}-\d{2}/)?.[0];
+    const day = date && new Date(date);
     return {
       image,
       full: full.src,
       alt: location ? `Photo taken in ${location}` : 'Photo by Batuhan Büber',
-      date: date && new Date(date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }),
+      date: day && day.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }),
+      // The hover overlay is tight on space: "10 Aug 2022"
+      shortDate: day && `${day.getUTCDate()} ${day.toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' })} ${day.getUTCFullYear()}`,
       location,
       device,
       label,
@@ -64,7 +67,7 @@ const photos = await Promise.all(
           <span class="overlay" aria-hidden="true">
             {photo.label && <span class="overlay-tag">{photo.label}</span>}
             <span class="overlay-meta">
-              {photo.date && <span><LuCalendar />{photo.date}</span>}
+              {photo.shortDate && <span><LuCalendar />{photo.shortDate}</span>}
               {photo.location && <span><LuMapPin />{photo.location}</span>}
               {photo.device && <span><LuSmartphone />{photo.device}</span>}
             </span>
@@ -110,7 +113,8 @@ const photos = await Promise.all(
 
   // Masonry: each photo goes to the shortest column, wide ones span two columns
   // when there are three. If a wide photo would leave a gap above it, the next
-  // regular photo is placed first to fill that column.
+  // regular photo is placed first to fill that column; if there is none nearby,
+  // the wide photo takes a single column instead.
   function layout(gallery: HTMLElement) {
     const width = gallery.clientWidth;
     if (!width || gallery.dataset.width === String(width)) return;
@@ -119,14 +123,17 @@ const photos = await Promise.all(
     const count = columnCount(width);
     const column = (width - GAP * (count - 1)) / count;
     const heights = Array<number>(count).fill(0);
+    const maxGap = column * 0.05;
     const isWide = (photo: HTMLElement) => count >= 3 && Number(photo.dataset.ratio) >= WIDE;
 
-    function place(photo: HTMLElement) {
-      const span = isWide(photo) ? 2 : 1;
+    function place(photo: HTMLElement, span: number) {
       let start = 0;
       let top = Infinity;
       for (let i = 0; i + span <= count; i++) {
-        const columnTop = Math.max(...heights.slice(i, i + span));
+        const tops = heights.slice(i, i + span);
+        const columnTop = Math.max(...tops);
+        // A wide photo only goes where its two columns end at about the same height
+        if (Math.min(...tops) < columnTop - maxGap) continue;
         if (columnTop < top) [start, top] = [i, columnTop];
       }
       const photoWidth = column * span + GAP * (span - 1);
@@ -151,12 +158,15 @@ const photos = await Promise.all(
       (a, b) => Number(a.dataset.index) - Number(b.dataset.index)
     );
     while (queue.length) {
-      let next = 0;
-      if (isWide(queue[0]) && wideGap() > column * 0.25) {
+      if (!isWide(queue[0])) {
+        place(queue.shift()!, 1);
+      } else if (wideGap() <= maxGap) {
+        place(queue.shift()!, 2);
+      } else {
         const regular = queue.findIndex((photo) => !isWide(photo));
-        if (regular > 0 && regular <= 3) next = regular;
+        if (regular > 0 && regular <= 3) place(queue.splice(regular, 1)[0], 1);
+        else place(queue.shift()!, 1);
       }
-      place(queue.splice(next, 1)[0]);
     }
 
     gallery.style.height = `${Math.max(...heights) - GAP}px`;
@@ -282,6 +292,7 @@ const photos = await Promise.all(
       padding: 0.875rem;
       color: #fff;
       text-align: left;
+      letter-spacing: -0.02em;
       background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.2) 45%, transparent 70%);
       opacity: 0;
       transition: opacity 0.3s ease;
@@ -320,7 +331,11 @@ const photos = await Promise.all(
       display: flex;
       align-items: center;
       gap: 0.375rem;
-      white-space: nowrap;
+    }
+
+    /* A long location wraps instead of running past the photo */
+    .overlay-meta svg {
+      flex-shrink: 0;
     }
   }
 
