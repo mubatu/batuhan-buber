@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react';
+import { LuDownload } from 'react-icons/lu';
 import { type Education, type Experience } from '../types/resume';
 import TechTag from './TechTag';
 
@@ -24,13 +25,14 @@ function ResumeSection({ title, children }: { title: string; children: ReactNode
 interface ResumeEntryProps {
   name: string;
   url: string;
+  logo?: string;
   subtitle: string;
   date: string;
   location: string;
   children?: ReactNode;
 }
 
-function ResumeEntry({ name, url, subtitle, date, location, children }: ResumeEntryProps) {
+function ResumeEntry({ name, url, logo, subtitle, date, location, children }: ResumeEntryProps) {
   return (
     <div className="flex flex-col md:flex-row md:justify-between md:items-start">
       <div className="flex-1">
@@ -38,8 +40,9 @@ function ResumeEntry({ name, url, subtitle, date, location, children }: ResumeEn
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-lg font-medium text-(--color-text-primary) inline-block hover:underline"
+          className="text-lg font-medium text-(--color-text-primary) inline-flex items-center gap-2.5 hover:underline"
         >
+          {logo && <img src={logo} alt="" className="w-6 h-6 shrink-0 object-contain" />}
           {name}
         </a>
         <p className="text-lg font-light text-(--color-text-primary)">
@@ -68,6 +71,7 @@ export default function Resume({ education, experience }: ResumeProps) {
             key={edu.schoolName}
             name={edu.schoolName}
             url={edu.url}
+            logo={edu.logo}
             subtitle={edu.degree}
             date={edu.expected ? `${edu.date} (expected)` : edu.date}
             location={edu.location}
@@ -81,6 +85,7 @@ export default function Resume({ education, experience }: ResumeProps) {
             key={exp.companyName}
             name={exp.companyName}
             url={exp.url}
+            logo={exp.logo}
             subtitle={exp.title}
             date={exp.date}
             location={exp.location}
@@ -95,6 +100,18 @@ export default function Resume({ education, experience }: ResumeProps) {
           </ResumeEntry>
         ))}
       </ResumeSection>
+
+      <div className="flex justify-end">
+        <a
+          href="/resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-(--color-bg-primary) bg-(--color-text-primary) border border-(--color-text-primary) rounded-md transition-transform duration-200 hover:scale-[1.03]"
+        >
+          <LuDownload aria-hidden="true" />
+          Download PDF
+        </a>
+      </div>
     </div>
   );
 }
