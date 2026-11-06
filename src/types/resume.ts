@@ -5,6 +5,7 @@ export interface Education {
   date: string;
   expected?: boolean;
   url: string;
+  logo?: string;
 }
 
 export interface Experience {
@@ -14,6 +15,7 @@ export interface Experience {
   date: string;
   technologies?: string[];
   url: string;
+  logo?: string;
 }
 
 export interface ResumeData {
