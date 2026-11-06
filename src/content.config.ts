@@ -9,10 +9,13 @@ const projects = defineCollection({
       summary: z.string(),
       logo: image().optional(),
       cover: image().optional(),
+      // Shown as a photo grid on the detail page instead of (or after) the markdown body
+      gallery: z.array(image()).default([]),
       links: z
         .object({
           website: z.string().url().optional(),
           github: z.string().url().optional(),
+          instagram: z.string().url().optional(),
         })
         .default({}),
       tags: z.array(z.string()).default([]),

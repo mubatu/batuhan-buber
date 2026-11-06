@@ -1,6 +1,6 @@
 ---
 import { FaGithub } from 'react-icons/fa6';
-import { LuBookOpen } from 'react-icons/lu';
+import { LuPalette, LuWrench } from 'react-icons/lu';
 import { type ProjectStatus } from '../lib/projects';
 
 interface Props {
@@ -13,11 +13,14 @@ const { status } = Astro.props;
 {status === 'live' && (
   <span class="badge badge--live"><span class="dot" aria-hidden="true"></span>Live</span>
 )}
+{status === 'design' && (
+  <span class="badge"><LuPalette aria-hidden="true" />Design</span>
+)}
 {status === 'open-source' && (
   <span class="badge"><FaGithub aria-hidden="true" />Open source</span>
 )}
-{status === 'case-study' && (
-  <span class="badge"><LuBookOpen aria-hidden="true" />Case study</span>
+{status === 'tools' && (
+  <span class="badge"><LuWrench aria-hidden="true" />Tool</span>
 )}
 
 <style>
