@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react';
+import { LuDownload } from 'react-icons/lu';
 import { type Education, type Experience } from '../types/resume';
 import TechTag from './TechTag';
 
@@ -99,6 +100,18 @@ export default function Resume({ education, experience }: ResumeProps) {
           </ResumeEntry>
         ))}
       </ResumeSection>
+
+      <div className="flex justify-end">
+        <a
+          href="/resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-(--color-bg-primary) bg-(--color-text-primary) border border-(--color-text-primary) rounded-md transition-transform duration-200 hover:scale-[1.03]"
+        >
+          <LuDownload aria-hidden="true" />
+          Download PDF
+        </a>
+      </div>
     </div>
   );
 }
