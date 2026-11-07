@@ -3,7 +3,7 @@ title: True Portfolio
 summary: See how your BIST stock and TEFAS fund portfolios really did over time, not just today's profit and loss.
 logo: ./logos/true-portfolio.png
 links:
-  website: https://portfolio.mubatu.com
+  website: https://trueportfolio.net
   github: https://github.com/mubatu/true-portfolio
 tags: [React, TypeScript, Python, FastAPI, Supabase]
 featured: true
